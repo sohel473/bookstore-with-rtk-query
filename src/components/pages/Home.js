@@ -5,8 +5,8 @@ import FilterBook from "../filter/FilterBook";
 export default function Home() {
   return (
     <>
-      <main class="py-12 px-6 2xl:px-6 container">
-        <div class="order-2 xl:-order-1">
+      <main className="py-12 px-6 2xl:px-6 container">
+        <div className="order-2 xl:-order-1">
           {/* filter books */}
           <FilterBook />
 

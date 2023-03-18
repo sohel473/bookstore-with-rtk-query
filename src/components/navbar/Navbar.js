@@ -4,41 +4,50 @@ import logo from "../../assets/images/logo.svg";
 
 export default function Navbar() {
   return (
-    <nav class="py-4 2xl:px-6">
-      <div class="container flex items-center justify-between">
-        <img src={logo} width="150px" class="object-contain" alt="logo" />
+    <nav className="py-4 2xl:px-6">
+      <div className="container flex items-center justify-between">
+        <img
+          src={logo}
+          width="150px"
+          className="object-contain"
+          alt="logo"
+        />
 
-        <ul class="hidden md:flex items-center space-x-6">
+        <ul className="hidden md:flex items-center space-x-6">
           <Link
-            class="font-semibold cursor-pointer"
+            className="font-semibold cursor-pointer"
             to="/books"
             id="lws-bookStore"
           >
             <li>Book Store</li>
           </Link>
-          <Link class="cursor-pointer" to="/addNewBook" id="lws-addBook">
+          <Link
+            className="cursor-pointer"
+            to="/addNewBook"
+            id="lws-addBook"
+          >
             <li>Add Book</li>
           </Link>
         </ul>
 
-        <form class="flex items-center">
-          <div class="group relative rounded-md bg-white">
+        <form className="flex items-center">
+          <div className="group relative rounded-md bg-white">
             <svg
               width="20"
               height="20"
               fill="currentColor"
-              class="absolute left-3 top-1/2 -mt-2.5 text-slate-400 pointer-events-none group-focus-within:text-primary"
+              className="absolute left-3 top-1/2 -mt-2.5 text-slate-400 pointer-events-none group-focus-within:text-primary"
             >
               <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
+                fillRule="evenodd"
+                clipRule="evenodd"
                 d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
               ></path>
             </svg>
             <input
               type="text"
               placeholder="Filter books..."
-              class="search"
+              className="search"
               id="lws-search"
             />
           </div>
