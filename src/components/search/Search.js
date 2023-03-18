@@ -7,7 +7,7 @@ export default function Search() {
 
   const handleSearch = (e) => {
     dispatch(setSearch(e.target.value));
-    console.log(e.target.value);
+    // console.log(e.target.value);
   };
 
   return (
