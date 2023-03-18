@@ -1,9 +1,12 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useGetBooksQuery } from "../../features/api/apiSlice";
 import Book from "./Book";
 
 export default function Books() {
   const { data: books, error, isLoading } = useGetBooksQuery();
+
+  const filter = useSelector((state) => state.filter.value);
 
   let content = null;
 
@@ -12,9 +15,16 @@ export default function Books() {
   } else if (error) {
     content = <div>{error.message}</div>;
   } else if (books) {
-    content = books.map((book) => {
-      return <Book key={book.id} book={book} />;
-    });
+    content = books
+      .filter((book) => {
+        if (filter === "All") {
+          return true;
+        } else if (filter === "Featured") {
+          return book.featured;
+        }
+        return false;
+      })
+      .map((book) => <Book key={book.id} book={book} />);
   }
 
   return (
