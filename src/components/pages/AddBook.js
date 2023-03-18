@@ -1,6 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useCreateBookMutation } from "../../features/api/apiSlice";
 
 export default function AddBook() {
+  const navigate = useNavigate();
+  const [createBook, { isSuccess }] = useCreateBookMutation();
+
+  const [formValues, setFormValues] = useState({
+    id: "",
+    name: "",
+    author: "",
+    thumbnail: "",
+    price: "",
+    rating: "",
+    featured: false,
+  });
+
+  const handleChange = (e) => {
+    const value =
+      e.target.type === "checkbox" ? e.target.checked : e.target.value;
+    setFormValues({ ...formValues, [e.target.name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    createBook(formValues);
+    navigate("/books");
+  };
+
   return (
     <>
       <main className="py-6 2xl:px-6">
@@ -9,7 +36,7 @@ export default function AddBook() {
             <h4 className="mb-8 text-xl font-bold text-center">
               Add New Book
             </h4>
-            <form className="book-form">
+            <form className="book-form" onSubmit={handleSubmit}>
               <div className="space-y-2">
                 <label htmlFor="lws-bookName">Book Name</label>
                 <input
@@ -18,6 +45,8 @@ export default function AddBook() {
                   type="text"
                   id="lws-bookName"
                   name="name"
+                  value={formValues.name}
+                  onChange={handleChange}
                 />
               </div>
 
@@ -29,6 +58,8 @@ export default function AddBook() {
                   type="text"
                   id="lws-author"
                   name="author"
+                  value={formValues.author}
+                  onChange={handleChange}
                 />
               </div>
 
@@ -40,6 +71,8 @@ export default function AddBook() {
                   type="text"
                   id="lws-thumbnail"
                   name="thumbnail"
+                  value={formValues.thumbnail}
+                  onChange={handleChange}
                 />
               </div>
 
@@ -52,6 +85,9 @@ export default function AddBook() {
                     type="number"
                     id="lws-price"
                     name="price"
+                    min="1"
+                    value={formValues.price}
+                    onChange={handleChange}
                   />
                 </div>
 
@@ -65,6 +101,8 @@ export default function AddBook() {
                     name="rating"
                     min="1"
                     max="5"
+                    value={formValues.rating}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
@@ -75,6 +113,8 @@ export default function AddBook() {
                   type="checkbox"
                   name="featured"
                   className="w-4 h-4"
+                  checked={formValues.featured}
+                  onChange={handleChange}
                 />
                 <label htmlFor="lws-featured" className="ml-2 text-sm">
                   {" "}
@@ -82,7 +122,12 @@ export default function AddBook() {
                 </label>
               </div>
 
-              <button type="submit" className="submit" id="lws-submit">
+              <button
+                type="submit"
+                className="submit"
+                id="lws-submit"
+                disabled={isSuccess}
+              >
                 Add Book
               </button>
             </form>

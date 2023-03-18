@@ -20,6 +20,10 @@ export const apiSlice = createApi({
         method: "POST",
         body,
       }),
+      invalidatesTags: (result, error, body) => [
+        "Books",
+        { type: "Book", id: result.id },
+      ],
     }),
     updateBook: builder.mutation({
       query: (body) => ({

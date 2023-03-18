@@ -12,7 +12,9 @@ export default function Books() {
   } else if (error) {
     content = <div>{error.message}</div>;
   } else if (books) {
-    content = books.map((book) => <Book key={book.id} book={book} />);
+    content = books.map((book) => {
+      return <Book key={book.id} book={book} />;
+    });
   }
 
   return (
