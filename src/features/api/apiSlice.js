@@ -27,6 +27,10 @@ export const apiSlice = createApi({
         method: "PUT",
         body,
       }),
+      invalidatesTags: (result, error, body) => [
+        "Books",
+        { type: "Book", id: body.id },
+      ],
     }),
     deleteBook: builder.mutation({
       query: (id) => ({

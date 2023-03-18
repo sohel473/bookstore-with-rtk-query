@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
   useGetBookQuery,
-  // useUpdateBookMutation,
+  useUpdateBookMutation,
 } from "../../features/api/apiSlice";
 
 export default function EditBook() {
   const { bookId } = useParams();
+  const navigate = useNavigate();
 
-  const { data: book, isLoading } = useGetBookQuery(bookId);
+  const { data: book } = useGetBookQuery(bookId);
 
-  // const [updateBook, { isLoading: isUpdating }] = useUpdateBookMutation();
+  const [updateBook, { isLoading: isUpdating }] = useUpdateBookMutation();
 
   const [formValues, setFormValues] = useState({
     id: "",
@@ -42,10 +43,11 @@ export default function EditBook() {
     setFormValues({ ...formValues, [e.target.name]: value });
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   updateBook(formValues);
-  // };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    updateBook(formValues);
+    navigate("/books");
+  };
 
   return (
     <>
@@ -55,7 +57,7 @@ export default function EditBook() {
             <h4 className="mb-8 text-xl font-bold text-center">
               Edit Book
             </h4>
-            <form className="book-form">
+            <form className="book-form" onSubmit={handleSubmit}>
               <div className="space-y-2">
                 <label htmlFor="lws-bookName">Book Name</label>
                 <input
@@ -140,7 +142,12 @@ export default function EditBook() {
                 </label>
               </div>
 
-              <button type="submit" className="submit" id="lws-submit">
+              <button
+                disabled={isUpdating}
+                type="submit"
+                className="submit"
+                id="lws-submit"
+              >
                 Edit Book
               </button>
             </form>
