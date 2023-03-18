@@ -8,6 +8,8 @@ export default function Books() {
 
   const filter = useSelector((state) => state.filter.value);
 
+  const searchValue = useSelector((state) => state.search.value);
+
   let content = null;
 
   if (isLoading) {
@@ -23,6 +25,16 @@ export default function Books() {
           return book.featured;
         }
         return false;
+      })
+      .filter((book) => {
+        if (searchValue) {
+          return (
+            // search books by title or author
+            book.name.toLowerCase().includes(searchValue.toLowerCase()) ||
+            book.author.toLowerCase().includes(searchValue.toLowerCase())
+          );
+        }
+        return true;
       })
       .map((book) => <Book key={book.id} book={book} />);
   }

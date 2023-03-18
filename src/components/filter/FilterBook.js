@@ -6,7 +6,7 @@ export default function FilterBook() {
   const dispatch = useDispatch();
   const { value } = useSelector((state) => state.filter);
 
-  console.log(value);
+  // console.log(value);
 
   const handleFilter = (e) => {
     dispatch(setFilter(e.target.value));
