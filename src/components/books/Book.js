@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useDeleteBookMutation } from "../../features/api/apiSlice";
 
 export default function Book({ book }) {
   const { id, name, author, thumbnail, price, rating, featured } = book;
@@ -19,6 +20,14 @@ export default function Book({ book }) {
     }
     return stars;
   };
+
+  const [deleteBook] = useDeleteBookMutation();
+
+  const handleDelete = (id) => {
+    window.confirm("Are you sure you want to delete this book?") &&
+      deleteBook(id);
+  };
+
   return (
     <>
       {/* <!-- Card 1 --> */}
@@ -51,7 +60,10 @@ export default function Book({ book }) {
                   </svg>
                 </button>
               </Link>
-              <button className="lws-deleteBook">
+              <button
+                className="lws-deleteBook"
+                onClick={() => handleDelete(id)}
+              >
                 <svg
                   fill="none"
                   viewBox="0 0 24 24"

@@ -37,6 +37,7 @@ export const apiSlice = createApi({
         url: `/books/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: (result, error, id) => ["Books"],
     }),
   }),
 });
